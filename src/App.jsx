@@ -1,3 +1,10 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable object-curly-newline */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
 import './App.css';
 import uuid from 'react-native-uuid';
@@ -38,27 +45,29 @@ export const App = () => {
   const [newTask, setNewTask] = useState({ uuid: uuid.v4(), title: '', description: '', date: new Date().toISOString().split('T')[0] });
   const [isEditing, setIsEditing] = useState(false);
 
-  const empty_form = { uuid: uuid.v4(), title: '', description: '', priority: "", date: new Date().toISOString().split('T')[0] }
+  const emptyForm = {
+    uuid: uuid.v4(), title: '', description: '', priority: '', date: new Date().toISOString().split('T')[0]
+  };
 
   const changeSelectedIndex = (selectValue) => {
-    document.querySelector("#priority-select").value = selectValue;
-  }
+    document.querySelector('#priority-select').value = selectValue;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setTasks([...tasks, newTask]);
-    setNewTask(empty_form);
-    changeSelectedIndex("");
-  }
+    setNewTask(emptyForm);
+    changeSelectedIndex('');
+  };
 
   const handleChange = (e) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleRemove = (id) => {
     const newList = tasks.filter((task) => task.uuid !== id);
     setTasks(newList);
-  }
+  };
 
   const handleEdit = (task) => {
     setNewTask(task);
@@ -68,8 +77,8 @@ export const App = () => {
 
   const handleCancel = (e) => {
     e.preventDefault();
-    setNewTask(empty_form);
-    changeSelectedIndex("");
+    setNewTask(emptyForm);
+    changeSelectedIndex('');
     setIsEditing(false);
   };
 
@@ -77,26 +86,26 @@ export const App = () => {
     e.preventDefault();
     const newList = tasks.map((task) => (task.uuid === newTask.uuid ? newTask : task));
     setTasks(newList);
-    setNewTask(empty_form);
+    setNewTask(emptyForm);
     changeSelectedIndex('');
     setIsEditing(false);
   };
 
   const doneTask = (e) => {
     const element = e.target.parentElement;
-    element.classList.toggle("crossed-line");
-    const newList = tasks.map((task) => task.uuid === e.target.id ? { ...task, isDone: !task.isDone } : task);
+    element.classList.toggle('crossed-line');
+    const newList = tasks.map((task) => (task.uuid === e.target.id ? { ...task, isDone: !task.isDone } : task));
     setTasks(newList);
   };
 
   const sortTasks = (e) => {
     const sortElement = e.target.value;
-    if (sortElement === "title") {
-      tasks.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
-    } else if (sortElement === "date") {
-      tasks.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));
+    if (sortElement === 'title') {
+      tasks.sort((a, b) => ((a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)));
+    } else if (sortElement === 'date') {
+      tasks.sort((a, b) => ((a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0)));
     } else {
-      tasks.sort((a, b) => (a.priority < b.priority) ? 1 : ((b.priority < a.priority) ? -1 : 0));
+      tasks.sort((a, b) => ((a.priority < b.priority) ? 1 : ((b.priority < a.priority) ? -1 : 0)));
     }
     setTasks([...tasks]);
   };
@@ -120,7 +129,7 @@ export const App = () => {
           <select name="priority" id="priority-select" onChange={handleChange}>
             <option value="">Aucune</option>
             <option value="3">Urgente</option>
-            <option value="2" >Haute</option>
+            <option value="2">Haute</option>
             <option value="1">Normale</option>
             <option value="0">Basse</option>
           </select>
@@ -140,7 +149,7 @@ export const App = () => {
       </div>
 
       <ul>
-        {tasks.map(task => <li key={task.uuid}><input type="checkbox" id={task.uuid} onClick={doneTask}></input><label htmlFor={task.uuid} > {task.title} ({task.description}) <strong>Pour le :</strong> {task.date} <strong>Priorité :</strong> {task.priority} </label><button onClick={() => handleRemove(task.uuid)}>Supprimer</button><button onClick={() => handleEdit(task)}>Modifier</button></li>)}
+        {tasks.map((task) => <li key={task.uuid}><input type="checkbox" id={task.uuid} onClick={doneTask} /><label htmlFor={task.uuid}> {task.title} ({task.description}) <strong>Pour le :</strong> {task.date} <strong>Priorité :</strong> {task.priority} </label><button onClick={() => handleRemove(task.uuid)}>Supprimer</button><button onClick={() => handleEdit(task)}>Modifier</button></li>)}
       </ul>
       <div>
         <h2>Trier par :</h2>
@@ -149,5 +158,5 @@ export const App = () => {
         <input type="radio" name="tri" id="sort-date" value="date" onClick={sortTasks} /><label htmlFor="sort-date">Date</label>
       </div>
     </div>
-  )
-}
+  );
+};
