@@ -1,10 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable object-curly-newline */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable max-len */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
 import './App.css';
 import uuid from 'react-native-uuid';
