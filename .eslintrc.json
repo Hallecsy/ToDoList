@@ -26,6 +26,7 @@
                 "namedComponents": "arrow-function",
                 "unnamedComponents": "arrow-function"
             }
-        ]
+        ],
+        "comma-dangle": ["error", "never"]
     }
 }
