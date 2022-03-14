@@ -27,6 +27,19 @@
                 "unnamedComponents": "arrow-function"
             }
         ],
-        "comma-dangle": ["error", "never"]
+        "comma-dangle": ["error", "never"],
+        "no-nested-ternary": ["off"],
+        "react/react-in-jsx-scope": ["off"],
+        "jsx-a11y/label-has-associated-control": ["error", {
+            "required": {
+                "some": ["nesting", "id"]
+            }
+        }],
+        "jsx-a11y/label-has-for": ["error", {
+        "required": {
+            "some": ["nesting", "id"]
+        }
+        }],
+        "react/jsx-one-expression-per-line": "off"
     }
 }

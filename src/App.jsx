@@ -35,7 +35,9 @@ export const App = () => {
     }
   ]);
 
-  const [newTask, setNewTask] = useState({ uuid: uuid.v4(), title: '', description: '', date: new Date().toISOString().split('T')[0] });
+  const [newTask, setNewTask] = useState({
+    uuid: uuid.v4(), title: '', description: '', date: new Date().toISOString().split('T')[0]
+  });
   const [isEditing, setIsEditing] = useState(false);
 
   const emptyForm = {
@@ -87,7 +89,9 @@ export const App = () => {
   const doneTask = (e) => {
     const element = e.target.parentElement;
     element.classList.toggle('crossed-line');
-    const newList = tasks.map((task) => (task.uuid === e.target.id ? { ...task, isDone: !task.isDone } : task));
+    const newList = tasks.map(
+      (task) => (task.uuid === e.target.id ? { ...task, isDone: !task.isDone } : task)
+    );
     setTasks(newList);
   };
 
@@ -112,13 +116,13 @@ export const App = () => {
           <h1>Nouvelle tâche</h1>
         )}
         <form method="GET" onSubmit={handleSubmit}>
-          <label> Nom de la tâche : </label>
-          <input type="text" name="title" value={newTask.title} onChange={handleChange} />
+          <label htmlFor="titleTask"> Nom de la tâche : </label>
+          <input id="titleTask" type="text" name="title" value={newTask.title} onChange={handleChange} />
           <br />
-          <label> Description : </label>
-          <input type="textarea" name="description" value={newTask.description} onChange={handleChange} />
+          <label htmlFor="descriptionTask"> Description : </label>
+          <input id="descriptionTask" type="textarea" name="description" value={newTask.description} onChange={handleChange} />
           <br />
-          <label> Priorité : </label>
+          <label htmlFor="priority-select"> Priorité : </label>
           <select name="priority" id="priority-select" onChange={handleChange}>
             <option value="">Aucune</option>
             <option value="3">Urgente</option>
@@ -127,8 +131,8 @@ export const App = () => {
             <option value="0">Basse</option>
           </select>
           <br />
-          <label> À faire pour le : </label>
-          <input type="date" name="date" value={newTask.date} onChange={handleChange} />
+          <label htmlFor="dateTask"> À faire pour le : </label>
+          <input id="dateTask" type="date" name="date" value={newTask.date} onChange={handleChange} />
           <br />
           {isEditing ? (
             <div>
@@ -142,13 +146,27 @@ export const App = () => {
       </div>
 
       <ul>
-        {tasks.map((task) => <li key={task.uuid}><input type="checkbox" id={task.uuid} onClick={doneTask} /><label htmlFor={task.uuid}> {task.title} ({task.description}) <strong>Pour le :</strong> {task.date} <strong>Priorité :</strong> {task.priority} </label><button onClick={() => handleRemove(task.uuid)}>Supprimer</button><button onClick={() => handleEdit(task)}>Modifier</button></li>)}
+        {tasks.map((task) => (
+          <li key={task.uuid}>
+            <input type="checkbox" id={task.uuid} onClick={doneTask} />
+            <label htmlFor={task.uuid}>
+              {task.title}({task.description})
+              <strong>Pour le :</strong>{task.date}
+              <strong>Priorité :</strong>{task.priority}
+            </label>
+            <button type="button" onClick={() => handleRemove(task.uuid)}>Supprimer</button>
+            <button type="button" onClick={() => handleEdit(task)}>Modifier</button>
+          </li>
+        ))}
       </ul>
       <div>
         <h2>Trier par :</h2>
-        <input type="radio" name="tri" id="sort-title" value="title" onClick={sortTasks} /><label htmlFor="sort-title">Titre</label>
-        <input type="radio" name="tri" id="sort-priority" value="priority" onClick={sortTasks} /><label htmlFor="sort-priority">Priorité</label>
-        <input type="radio" name="tri" id="sort-date" value="date" onClick={sortTasks} /><label htmlFor="sort-date">Date</label>
+        <input type="radio" name="tri" id="sort-title" value="title" onClick={sortTasks} />
+        <label htmlFor="sort-title">Titre</label>
+        <input type="radio" name="tri" id="sort-priority" value="priority" onClick={sortTasks} />
+        <label htmlFor="sort-priority">Priorité</label>
+        <input type="radio" name="tri" id="sort-date" value="date" onClick={sortTasks} />
+        <label htmlFor="sort-date">Date</label>
       </div>
     </div>
   );
