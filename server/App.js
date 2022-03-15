@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const express = require('express');
-const uuid = require('react-native-uuid');
 
 const port = 3000;
 const app = express();
