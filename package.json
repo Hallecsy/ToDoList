@@ -9,7 +9,10 @@
     "lint": "eslint --ext js,jsx ."
   },
   "dependencies": {
+    "@prisma/client": "^3.10.0",
     "eslint": "^8.11.0",
+    "express": "^4.17.3",
+    "prisma": "^3.10.0",
     "react": "^17.0.0",
     "react-datepicker": "^4.6.0",
     "react-dom": "^17.0.0",

@@ -8,8 +8,6 @@ export const App = () => {
       uuid: uuid.v4(),
       title: 'Sortir les poubelles',
       description: 'Poubelle jaune le mardi et grise le jeudi',
-      date: '2021-03-15',
-      isDone: false,
       priority: '1'
     }, {
       uuid: uuid.v4(),
