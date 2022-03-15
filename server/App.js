@@ -75,7 +75,8 @@ app.route('/api/todos/:uuid')
           titre: req.body.titre,
           description: req.body.description,
           priorite: req.body.priorite,
-          date: req.body.date
+          date: req.body.date,
+          isDone: req.body.isDone
         }
       });
       res.send(todo);
