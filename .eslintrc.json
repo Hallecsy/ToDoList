@@ -40,6 +40,8 @@
             "some": ["nesting", "id"]
         }
         }],
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "react/style-prop-object": "off",
+        "eqeqeq": "off"
     }
 }
