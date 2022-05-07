@@ -9,7 +9,7 @@
     "lint": "eslint --ext js,jsx ."
   },
   "dependencies": {
-    "@prisma/client": "^3.10.0",
+    "@prisma/client": "^3.13.0",
     "axios": "^0.26.1",
     "cors": "^2.8.5",
     "date-fns": "^2.28.0",

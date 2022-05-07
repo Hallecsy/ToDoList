@@ -142,6 +142,12 @@ export const App = () => {
 
   return (
     <div className="p-10 my-10 bg-white shadow-xl ring-1 ring-gray-900/5 sm:max-w-3xl sm:mx-auto sm:rounded-lg">
+      <p>
+        A faire :<br />
+        - Ajouter un loader<br />
+        - Séparer le code en composants (Un form.js, etc...)<br />
+        - Gérer les erreurs en front et back (Ne pas envoyer un form vide)<br />
+      </p>
       <h1 className="text-center font-bold text-3xl mb-5">ToDo List</h1>
       <div className="bg-gray-800 rounded-lg p-5 text-white">
         {isEditing ? (
