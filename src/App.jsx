@@ -51,8 +51,8 @@ export const App = () => {
       setNewTask(emptyForm);
       changeSelectedIndex('');
     })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setErrorMessage('Impossible d\'ajouter une nouvelle tâche');
       });
   };
 
@@ -61,13 +61,12 @@ export const App = () => {
   };
 
   const handleRemove = (id) => {
-    console.log(id);
     axios.delete(`http://localhost:5000/api/todos/${id}`).then(() => {
       const newList = tasks.filter((task) => task.uuid !== id);
       setTasks(newList);
     })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setErrorMessage('Impossible de supprimer la tâche');
       });
   };
 
@@ -103,8 +102,8 @@ export const App = () => {
       changeSelectedIndex('1');
       setIsEditing(false);
     })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setErrorMessage('Impossible de modifier la tâche');
       });
   };
 
@@ -128,8 +127,8 @@ export const App = () => {
       element.classList.toggle('opacity-40');
       setTasks(newList);
     })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setErrorMessage('Il y a eu un problème, merci de réésayer');
       });
   };
 
@@ -235,8 +234,8 @@ export const App = () => {
         </form>
       </div>
 
+      <div className="font-semibold text-red-600 text-center my-2">{errorMessage}</div>
       {isLoading ? <Loading /> : renderList}
-      {errorMessage && <div className="font-semibold text-red-600 text-center my-2">{errorMessage}</div>}
 
       <div>
         <h2 className="text-center font-bold text-xl mt-6">Trier par :</h2>
