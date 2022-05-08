@@ -43,6 +43,7 @@
         "react/jsx-one-expression-per-line": "off",
         "react/style-prop-object": "off",
         "eqeqeq": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

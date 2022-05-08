@@ -26,10 +26,12 @@ const Form = ({
       description: newTask.description,
       priorite: parseInt(newTask.priorite, 10),
       date: newTask.date
-    }).then(() => {
-      setTasks([...tasks, newTask]);
-      setNewTask(emptyForm);
-      changeSelectedIndex('');
+    }).then((response) => {
+      if (response.status === 200) {
+        setTasks([...tasks, newTask]);
+        setNewTask(emptyForm);
+        changeSelectedIndex('');
+      }
     })
       .catch(() => {
         setErrorMessage('Impossible d\'ajouter une nouvelle tâche');
@@ -55,12 +57,15 @@ const Form = ({
       description: newTask.description,
       priorite: parseInt(newTask.priorite, 10),
       date: new Date(newTask.date)
-    }).then(() => {
+    }).then((response) => {
       const newList = tasks.map((task) => (task.uuid === newTask.uuid ? newTask : task));
-      setTasks(newList);
-      setNewTask(emptyForm);
-      changeSelectedIndex('1');
-      setIsEditing(false);
+
+      if (response.status === 200) {
+        setTasks(newList);
+        setNewTask(emptyForm);
+        changeSelectedIndex('1');
+        setIsEditing(false);
+      }
     })
       .catch(() => {
         setErrorMessage('Impossible de modifier la tâche');
@@ -79,15 +84,15 @@ const Form = ({
         <form method="GET" onSubmit={handleSubmit} className="pt-5 pb-5">
           <div className="py-2 flex">
             <label htmlFor="titreTask" className="font-semibold flex-shrink-0"> Nom de la tâche : </label>
-            <input id="titreTask" type="text" name="titre" className="w-1/2 shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" value={newTask.titre} onChange={handleChange} />
+            <input id="titreTask" type="text" name="titre" value={newTask.titre} onChange={handleChange} className="w-1/2 shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" />
           </div>
           <div className="py-2 flex">
             <label htmlFor="descriptionTask" className="font-semibold flex-shrink-0"> Description : </label>
-            <input id="descriptionTask" type="textarea" name="description" className="w-full shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" value={newTask.description} onChange={handleChange} />
+            <input id="descriptionTask" type="textarea" name="description" value={newTask.description} onChange={handleChange} className="w-full shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" />
           </div>
           <div className="py-2">
             <label htmlFor="priorite-select" className="font-semibold"> Priorité : </label>
-            <select name="priorite" id="priorite-select" className="shadow border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" onChange={handleChange}>
+            <select name="priorite" id="priorite-select" onChange={handleChange} className="shadow border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900">
               <option value="3">Urgente</option>
               <option value="2">Haute</option>
               <option value="1" selected>Normale</option>
@@ -96,7 +101,7 @@ const Form = ({
           </div>
           <div className="py-2">
             <label htmlFor="dateTask" className="font-semibold"> À faire pour le : </label>
-            <input id="dateTask" type="date" name="date" className="shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" value={format(new Date(newTask.date), 'yyyy-MM-dd')} onChange={handleChange} />
+            <input id="dateTask" type="date" name="date" value={format(new Date(newTask.date), 'yyyy-MM-dd')} onChange={handleChange} className="shadow appearance-none border rounded py-1 px-3 ml-2 text-grey-darker text-gray-900" />
           </div>
           <br />
           {isEditing ? (

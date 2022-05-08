@@ -11,9 +11,11 @@ const List = ({
   changeSelectedIndex
 }) => {
   const handleRemove = (id) => {
-    axios.delete(`http://localhost:5000/api/todos/${id}`).then(() => {
+    axios.delete(`http://localhost:5000/api/todos/${id}`).then((response) => {
       const newList = tasks.filter((task) => task.uuid !== id);
-      setTasks(newList);
+      if (response.status === 200) {
+        setTasks(newList);
+      }
     })
       .catch(() => {
         setErrorMessage('Impossible de supprimer la tâche');
@@ -46,9 +48,11 @@ const List = ({
 
     axios.put(`http://localhost:5000/api/todos/${e.target.id}`, {
       isDone: boolIsDone
-    }).then(() => {
-      element.classList.toggle('opacity-40');
-      setTasks(newList);
+    }).then((response) => {
+      if (response.status === 200) {
+        element.classList.toggle('opacity-40');
+        setTasks(newList);
+      }
     })
       .catch(() => {
         setErrorMessage('Il y a eu un problème, merci de réésayer');
@@ -56,10 +60,6 @@ const List = ({
   };
 
   const sortTasks = (e) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
     const sortElement = e.target.id;
     if (sortElement === 'sort-titre') {
       tasks.sort((a, b) => ((a.titre > b.titre) ? 1 : ((b.titre > a.titre) ? -1 : 0)));
@@ -73,6 +73,14 @@ const List = ({
 
   return (
     <div>
+      <div className="flex mt-6 items-center">
+        <h2 className="text-center font-bold text-xl mr-5">Trier par :</h2>
+        <div>
+          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-titre" onClick={sortTasks}>Titre</button>
+          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-priorite" onClick={sortTasks}>Priorité</button>
+          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-date" onClick={sortTasks}>Date</button>
+        </div>
+      </div>
       <ul>
         {tasks.map((task) => (
           <li key={task.uuid} className={task.isDone ? 'relative bg-blue-100 rounded-lg p-5 my-3 opacity-40 hover:opacity-70' : 'relative bg-blue-100 rounded-lg p-5 my-3'}>
@@ -105,14 +113,6 @@ const List = ({
           </li>
         ))}
       </ul>
-      <div>
-        <h2 className="text-center font-bold text-xl mt-6">Trier par :</h2>
-        <div className="flex justify-center mt-3">
-          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-titre" onClick={sortTasks}>Titre</button>
-          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-priorite" onClick={sortTasks}>Priorité</button>
-          <button className="px-3 py-2 mr-2 text-gray-50 text-sm rounded font-bold bg-gray-500 hover:bg-gray-900" type="button" id="sort-date" onClick={sortTasks}>Date</button>
-        </div>
-      </div>
     </div>
   );
 };
