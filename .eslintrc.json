@@ -42,6 +42,7 @@
         }],
         "react/jsx-one-expression-per-line": "off",
         "react/style-prop-object": "off",
-        "eqeqeq": "off"
+        "eqeqeq": "off",
+        "react/prop-types": "off"
     }
 }
